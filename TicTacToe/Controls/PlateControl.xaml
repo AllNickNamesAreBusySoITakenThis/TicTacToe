@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="TicTacToe.Controls.PlateControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:TicTacToe.Controls"
+    xmlns:converters="clr-namespace:TicTacToe.Converters"
+    xmlns:models="clr-namespace:TicTacToe.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="models:Plate">
+    <ContentView.Resources>
+        <converters:PlateToColorConverter x:Key="plateToColor" />
+        <converters:ColorToBrushConverter x:Key="colorToBrush" />
+        <converters:StateToBoolConverter x:Key="stateToBool" />
+    </ContentView.Resources>
+
+    <Border
+        Margin="3"
+        BackgroundColor="{Binding PlateColor}"
+        Stroke="Black"
+        StrokeShape="RoundRectangle 6"
+        StrokeThickness="2">
+        <Border.Shadow>
+            <Shadow Opacity="{AppThemeBinding Dark=0, Light=0.8}" Offset="10,10" />
+        </Border.Shadow>
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.PlateClickCommand}" CommandParameter="{Binding Index}" />
+        </Border.GestureRecognizers>
+        <Grid>
+            <Ellipse
+                Margin="10"
+                Fill="DeepPink"
+                HorizontalOptions="Fill"
+                IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cicle}"
+                VerticalOptions="Fill"
+                ZIndex="3" />
+            <Ellipse
+                Margin="30"
+                Fill="{Binding PlateColor, Converter={StaticResource colorToBrush}}"
+                HorizontalOptions="Fill"
+                IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cicle}"
+                VerticalOptions="Fill"
+                ZIndex="10" />
+            <Rectangle
+                Margin="10"
+                Fill="Yellow"
+                Rotation="45"
+                VerticalOptions="Fill"
+                 IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cross}"
+                WidthRequest="20" />
+            <Rectangle
+                Margin="10"
+                Fill="Yellow"
+                Rotation="-45"
+                VerticalOptions="Fill"
+                 IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cross}"
+                WidthRequest="20" />
+        </Grid>
+
+    </Border>
+</ContentView>

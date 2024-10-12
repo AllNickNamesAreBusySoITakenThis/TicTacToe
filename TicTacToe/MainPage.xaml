@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TicTacToe.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:TicTacToe.Controls"
+    xmlns:models="clr-namespace:TicTacToe.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModels="clr-namespace:TicTacToe.ViewModels"
+    Title="This is simple Tic Tac Toe game"
+    x:DataType="viewModels:MainPageViewModel">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding InitCommand}" EventName="Loaded" />
+    </ContentPage.Behaviors>
+
+    <Grid Padding="5" x:Name="mainGrid" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="{Binding SquartSize}" />
+            <RowDefinition Height="{Binding SquartSize}" />
+            <RowDefinition Height="{Binding SquartSize}" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="{Binding SquartSize}" />
+            <ColumnDefinition Width="{Binding SquartSize}" />
+            <ColumnDefinition Width="{Binding SquartSize}" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            Grid.Row="0"
+            Grid.ColumnSpan="5"
+            Margin="5"
+            HeightRequest="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Label
+                x:Name="label"
+                Grid.ColumnSpan="2"
+                FontSize="Large"
+                HorizontalTextAlignment="Center"
+                Text="{Binding InfoDataString}" />
+            <Button
+                Grid.Column="1"
+                Command="{Binding ClearCommand}"
+                Text="Refresh" />
+        </Grid>
+
+        <controls:PlateControl
+            Grid.Row="2"
+            Grid.Column="1"
+            BindingContext="{Binding Plates[0]}"
+            HeightRequest="{Binding SquartSize}"
+            WidthRequest="{Binding SquartSize}" />
+        <controls:PlateControl
+            Grid.Row="2"
+            Grid.Column="2"
+            BindingContext="{Binding Plates[1]}" />
+        <controls:PlateControl
+            Grid.Row="2"
+            Grid.Column="3"
+            BindingContext="{Binding Plates[2]}" />
+        <controls:PlateControl
+            Grid.Row="3"
+            Grid.Column="1"
+            BindingContext="{Binding Plates[3]}" />
+        <controls:PlateControl
+            Grid.Row="3"
+            Grid.Column="2"
+            BindingContext="{Binding Plates[4]}" />
+        <controls:PlateControl
+            Grid.Row="3"
+            Grid.Column="3"
+            BindingContext="{Binding Plates[5]}" />
+        <controls:PlateControl
+            Grid.Row="4"
+            Grid.Column="1"
+            BindingContext="{Binding Plates[6]}" />
+        <controls:PlateControl
+            Grid.Row="4"
+            Grid.Column="2"
+            BindingContext="{Binding Plates[7]}" />
+        <controls:PlateControl
+            Grid.Row="4"
+            Grid.Column="3"
+            BindingContext="{Binding Plates[8]}" />
+
+    </Grid>
+
+</ContentPage>
