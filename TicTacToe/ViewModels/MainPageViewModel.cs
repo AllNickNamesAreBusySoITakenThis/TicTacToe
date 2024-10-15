@@ -94,11 +94,13 @@ namespace TicTacToe.ViewModels
             {
                 var nearlyDisappearIndexes = new List<int>();
                 var winningIndexes = new List<int>();
+                var plateState = PlateState.None;
                 foreach (var item in Plates)
                 {
                     if (item.Index == index && item.PlateState == PlateState.None)
                     {
                         item.PlateState = CrossTurn ? PlateState.Cross : PlateState.Cicle;
+                        plateState = item.PlateState;
                         item.Timer = 1;
                         ProcessOtherPlates(index, item.PlateState, out nearlyDisappearIndexes, out winningIndexes);
                         CrossTurn = !CrossTurn;
@@ -111,7 +113,7 @@ namespace TicTacToe.ViewModels
                     {
                         Plates[i].NearlyDisappear = true;
                     }
-                    else
+                    else if(plateState == PlateState.None || plateState == Plates[i].PlateState)
                     {
                         Plates[i].NearlyDisappear = false;
                     }
@@ -229,8 +231,18 @@ namespace TicTacToe.ViewModels
                 return true;
             }
 
+            var orderedPlates = itemsIndexes.Select(x => Plates.First(p => p.Index == x)).OrderBy(p => p.RowIndex).ToList();
+            var maxDeltaBetweenColumns = 0;
+            for (int i = 0; i < orderedPlates.Count; i++)
+            {
+                if (i != orderedPlates.Count - 1 && Math.Abs(orderedPlates[i].ColumnIndex - orderedPlates[i+1].ColumnIndex)>maxDeltaBetweenColumns)
+                {
+                    maxDeltaBetweenColumns = Math.Abs(orderedPlates[i].ColumnIndex - orderedPlates[i + 1].ColumnIndex);
+                }
+            }
+
             //Different rows and columns for all three
-            if (rowIndexes.Distinct().Count() == rowIndexes.Count && colIndexes.Distinct().Count() == colIndexes.Count)
+            if (rowIndexes.Distinct().Count() == rowIndexes.Count && colIndexes.Distinct().Count() == colIndexes.Count && maxDeltaBetweenColumns ==1)
             {
                 return true;
             }
