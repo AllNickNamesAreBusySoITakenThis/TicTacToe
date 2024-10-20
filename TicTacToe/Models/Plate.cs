@@ -63,23 +63,29 @@ namespace TicTacToe.Models
         [NotifyPropertyChangedFor(nameof(PlateColor))]
         bool nearlyDisappear = false;
 
-        public string PlateColor
+        public Color PlateColor
         {
             get
             {     
                 if (IsWinning)
                 {
-                    return "#00ff00";
+                    return (Color)Application.Current.Resources["WinColor"];
                 }
 
-                switch (PlateState)
+                if (NearlyDisappear)
                 {
-                    case PlateState.Cicle:
-                        return NearlyDisappear ? "#808080" : "#30d5c8";
-                    case PlateState.Cross:
-                        return NearlyDisappear ? "#808080" : "#ff0000";
+                    return (Color)Application.Current.Resources["DisappearColor"];
+                }
+
+                switch (Application.Current.PlatformAppTheme)
+                {
+                    case AppTheme.Light:
+                        return (Color)Application.Current.Resources["ControlDark"];
+
+                    case AppTheme.Dark:
                     default:
-                        return "#8b00ff";
+                        return (Color)Application.Current.Resources["ControlDark"];
+
                 }
             }
         }

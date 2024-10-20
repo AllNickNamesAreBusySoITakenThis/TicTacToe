@@ -13,7 +13,7 @@ namespace TicTacToe.Converters
         {
             if(value == null) return null;
 
-            var brush = new SolidColorBrush(Color.FromArgb(value.ToString()));
+            var brush = new SolidColorBrush((Color)value);
 
             return brush;
         }

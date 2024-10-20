@@ -16,12 +16,12 @@
 
     <Border
         Margin="3"
-        BackgroundColor="{Binding PlateColor}"
+        BackgroundColor="{Binding Path=PlateColor}"
         Stroke="Black"
         StrokeShape="RoundRectangle 6"
         StrokeThickness="2">
         <Border.Shadow>
-            <Shadow Opacity="{AppThemeBinding Dark=0, Light=0.8}" Offset="10,10" />
+            <Shadow Opacity="{AppThemeBinding Dark=0.4, Light=0.8}" Offset="5,5" />
         </Border.Shadow>
         <Border.GestureRecognizers>
             <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.PlateClickCommand}" CommandParameter="{Binding Index}" />
@@ -29,31 +29,31 @@
         <Grid>
             <Ellipse
                 Margin="10"
-                Fill="DeepPink"
+                Fill="{StaticResource CircleColor}"
                 HorizontalOptions="Fill"
                 IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cicle}"
                 VerticalOptions="Fill"
                 ZIndex="3" />
             <Ellipse
                 Margin="30"
-                Fill="{Binding PlateColor, Converter={StaticResource colorToBrush}}"
+                Fill="{Binding Path=PlateColor, Converter={StaticResource colorToBrush}}"
                 HorizontalOptions="Fill"
                 IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cicle}"
                 VerticalOptions="Fill"
                 ZIndex="10" />
             <Rectangle
                 Margin="10"
-                Fill="Yellow"
+                Fill="{StaticResource CrossColor}"
+                IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cross}"
                 Rotation="45"
                 VerticalOptions="Fill"
-                 IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cross}"
                 WidthRequest="20" />
             <Rectangle
                 Margin="10"
-                Fill="Yellow"
+                Fill="{StaticResource CrossColor}"
+                IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cross}"
                 Rotation="-45"
                 VerticalOptions="Fill"
-                 IsVisible="{Binding PlateState, Converter={StaticResource stateToBool}, ConverterParameter=Cross}"
                 WidthRequest="20" />
         </Grid>
 
