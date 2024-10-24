@@ -63,6 +63,9 @@ namespace TicTacToe.Models
         [NotifyPropertyChangedFor(nameof(PlateColor))]
         bool nearlyDisappear = false;
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(PlateColor))]
+        PlateState currentTurn = PlateState.Cross;
         public Color PlateColor
         {
             get
@@ -72,7 +75,7 @@ namespace TicTacToe.Models
                     return (Color)Application.Current.Resources["WinColor"];
                 }
 
-                if (NearlyDisappear)
+                if (NearlyDisappear && CurrentTurn == PlateState)
                 {
                     return (Color)Application.Current.Resources["DisappearColor"];
                 }

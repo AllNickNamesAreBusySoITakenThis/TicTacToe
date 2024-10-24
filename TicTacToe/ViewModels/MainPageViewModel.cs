@@ -32,6 +32,8 @@ namespace TicTacToe.ViewModels
 
         #region Properties
 
+        public LocalizationResourceManager LocalizationResourceManager => LocalizationResourceManager.Instance;
+
         public ObservableCollection<Plate> Plates { get; set; } = new ObservableCollection<Plate>();
 
         [ObservableProperty]
@@ -69,10 +71,10 @@ namespace TicTacToe.ViewModels
             {
                 if (Victory)
                 {
-                    return CrossTurn ? "Circle won!" : "Cross won!";
+                    return CrossTurn ? LocalizationResourceManager["Circle_win"].ToString() : LocalizationResourceManager["Cross_win"].ToString();
                 }
 
-                return CrossTurn ? "Cross turn" : "Curcle turn";
+                return CrossTurn ? LocalizationResourceManager["Cross_turn"].ToString() : LocalizationResourceManager["Circle_turn"].ToString();
             }
         }
 
@@ -97,6 +99,7 @@ namespace TicTacToe.ViewModels
                 var plateState = PlateState.None;
                 foreach (var item in Plates)
                 {
+                    item.CurrentTurn = item.CurrentTurn == PlateState.Cross ? PlateState.Cicle : PlateState.Cross;
                     if (item.Index == index && item.PlateState == PlateState.None)
                     {
                         item.PlateState = CrossTurn ? PlateState.Cross : PlateState.Cicle;
@@ -147,6 +150,7 @@ namespace TicTacToe.ViewModels
                 item.Timer = 0;
                 item.IsWinning = false;
                 item.NearlyDisappear = false;
+                item.CurrentTurn = PlateState.Cross;
             }
         }
 
