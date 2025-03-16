@@ -92,6 +92,10 @@ namespace TicTacToe.ViewModels
         [RelayCommand]
         void PlateClick(int index)
         {
+            if (Plates[index].PlateState != PlateState.None)
+            {
+                return;
+            }
             if (!Victory)
             {
                 var nearlyDisappearIndexes = new List<int>();
